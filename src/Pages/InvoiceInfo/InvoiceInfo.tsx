@@ -17,6 +17,7 @@ import MenuItem from '@mui/material/MenuItem'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import Tooltip from '@mui/material/Tooltip'
 import { StyledTableCell } from '../../components/styledMuiComponents/InvoiceStyledTableCell'
+import InvoiceItemFormDialog from './components/InvoiceItemFormDialog'
 
 interface InvoiceInfoProps {}
 
@@ -68,6 +69,11 @@ const tableRows = [
 
 const InvoiceInfo: FC<InvoiceInfoProps> = () => {
   const [invoiceTypeCode, setInvoiceTypeCode] = React.useState('Commercial')
+  const [openInvoiceItemFrom, setOpenInvoiceItemFrom] = React.useState(false)
+
+  const handelAddInvoiceItem = () => {
+    setOpenInvoiceItemFrom(true)
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInvoiceTypeCode(event.target.value)
@@ -333,7 +339,12 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
           <Typography variant="h6" sx={{ mr: '1rem' }}>
             Invoice items
           </Typography>
-          <Button variant="contained" size="small" sx={{ backgroundColor: '#11232C' }}>
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ backgroundColor: '#11232C' }}
+            onClick={handelAddInvoiceItem}
+          >
             Add products
           </Button>
         </Box>
@@ -381,6 +392,8 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
           Export to XML
         </Button>
       </Box>
+
+      <InvoiceItemFormDialog open={openInvoiceItemFrom} setOpen={setOpenInvoiceItemFrom} />
     </Box>
   )
 }
