@@ -1,11 +1,22 @@
 import React, { FC } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { InputAdornment, Paper, TextField } from '@mui/material'
+import {
+  Button,
+  InputAdornment,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+} from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
-import Stack from '@mui/material/Stack/Stack'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import Tooltip from '@mui/material/Tooltip'
+import { StyledTableCell } from '../../components/styledMuiComponents/InvoiceStyledTableCell'
 
 interface InvoiceInfoProps {}
 
@@ -18,6 +29,41 @@ const invoiceTypeCodes = [
     value: 'Industrial',
     label: 'Industrial',
   },
+]
+
+function createRowData(
+  itemIdentification: string,
+  productType: string,
+  productDescription: string,
+  hsCode: string,
+  gs1Code: string,
+  originCountry: string,
+  itemQuantity: string,
+  netWeight: string
+) {
+  return {
+    itemIdentification,
+    productType,
+    productDescription,
+    hsCode,
+    gs1Code,
+    originCountry,
+    itemQuantity,
+    netWeight,
+  }
+}
+
+const tableRows = [
+  createRowData(
+    'value1',
+    'value 2',
+    'value 3',
+    'value 4',
+    'value 6',
+    'value 7',
+    'value 8',
+    'value 9'
+  ),
 ]
 
 const InvoiceInfo: FC<InvoiceInfoProps> = () => {
@@ -33,7 +79,7 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
         Invoice details
       </Typography>
 
-      <Paper sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', p: '10px 26px' }}>
+      <Paper sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start', p: '10px 31px' }}>
         <Typography variant="h6">General Info</Typography>
 
         <Box
@@ -273,6 +319,68 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
           />
         </Box>
       </Paper>
+
+      <Paper
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'start',
+          p: '30px 31px',
+          mt: '15px',
+        }}
+      >
+        <Box sx={{ display: 'flex', mb: '25px' }}>
+          <Typography variant="h6" sx={{ mr: '1rem' }}>
+            Invoice items
+          </Typography>
+          <Button variant="contained" size="small" sx={{ backgroundColor: '#11232C' }}>
+            Add products
+          </Button>
+        </Box>
+
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Item Identification</StyledTableCell>
+                <StyledTableCell align="right">Product Type</StyledTableCell>
+                <StyledTableCell align="right">Product Description</StyledTableCell>
+                <StyledTableCell align="right">HS Code</StyledTableCell>
+                <StyledTableCell align="right">GS1 Code</StyledTableCell>
+                <StyledTableCell align="right">Origin Country</StyledTableCell>
+                <StyledTableCell align="right">Item Quantity</StyledTableCell>
+                <StyledTableCell align="right">Net Weight</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tableRows.map((row, index) => (
+                <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    {row.itemIdentification}
+                  </TableCell>
+                  <TableCell align="right">{row.productType}</TableCell>
+                  <TableCell align="right">{row.productDescription}</TableCell>
+                  <TableCell align="right">{row.hsCode}</TableCell>
+                  <TableCell align="right">{row.gs1Code}</TableCell>
+                  <TableCell align="right">{row.originCountry}</TableCell>
+                  <TableCell align="right">{row.itemQuantity}</TableCell>
+                  <TableCell align="right">{row.netWeight}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          variant="contained"
+          size="large"
+          sx={{ backgroundColor: '#5DCA83', borderRadius: '2rem', m: '1rem', p: '1rem 10rem' }}
+        >
+          Export to XML
+        </Button>
+      </Box>
     </Box>
   )
 }
