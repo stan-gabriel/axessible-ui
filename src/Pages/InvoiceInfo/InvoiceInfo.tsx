@@ -14,8 +14,9 @@ import {
 import MenuItem from '@mui/material/MenuItem'
 import { StyledTableCell } from '../../components/styledMuiComponents/InvoiceStyledTableCell'
 import InvoiceItemFormDialog from './components/InvoiceItemFormDialog'
-import { IInvoiceInfo, InvoiceInfoDefaultValues } from './invoiceInfo.types'
+import { IInvoiceInfo, IInvoiceItem, InvoiceInfoDefaultValues } from './invoiceInfo.types'
 import TextFieldCustom from '../../components/TextFieldCustom'
+import { postInvoiceInfo } from '../../api/InvoiceInfoApi'
 
 interface InvoiceInfoProps {}
 
@@ -66,13 +67,10 @@ const tableRows = [
 ]
 
 const InvoiceInfo: FC<InvoiceInfoProps> = () => {
-  // const [invoiceTypeCode, setInvoiceTypeCode] = React.useState('Commercial')
   const [openInvoiceItemFrom, setOpenInvoiceItemFrom] = React.useState(false)
   const [invoiceInfo, setInvoiceInfo] = React.useState<IInvoiceInfo>(InvoiceInfoDefaultValues)
 
-  function handleInvoiceFormChange(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.name, ' - NAME')
-    console.log(event.target.value, ' - VALUE')
+  const handleInvoiceFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInvoiceInfo({
       ...invoiceInfo,
       [event.target.name]: event.target.value,
@@ -81,6 +79,17 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
 
   const handelAddInvoiceItem = () => {
     setOpenInvoiceItemFrom(true)
+  }
+
+  const saveInvoiceItem = (invoiceItem: IInvoiceItem) => {
+    setInvoiceInfo({
+      ...invoiceInfo,
+      invoiceItems: [...invoiceInfo.invoiceItems, invoiceItem],
+    })
+  }
+
+  const exportToXml = async () => {
+    const response = await postInvoiceInfo(invoiceInfo)
   }
 
   return (
@@ -272,18 +281,18 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tableRows.map((row, index) => (
+              {invoiceInfo.invoiceItems.map((item, index) => (
                 <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
-                    {row.itemIdentification}
+                    {item.itemIdentification}
                   </TableCell>
-                  <TableCell align="right">{row.productType}</TableCell>
-                  <TableCell align="right">{row.productDescription}</TableCell>
-                  <TableCell align="right">{row.hsCode}</TableCell>
-                  <TableCell align="right">{row.gs1Code}</TableCell>
-                  <TableCell align="right">{row.originCountry}</TableCell>
-                  <TableCell align="right">{row.itemQuantity}</TableCell>
-                  <TableCell align="right">{row.netWeight}</TableCell>
+                  <TableCell align="right">{item.productType}</TableCell>
+                  <TableCell align="right">{item.productDescription}</TableCell>
+                  <TableCell align="right">{item.hsCode}</TableCell>
+                  <TableCell align="right">{item.gs1Code}</TableCell>
+                  <TableCell align="right">{item.originCountry}</TableCell>
+                  <TableCell align="right">{item.itemQuantity}</TableCell>
+                  <TableCell align="right">{item.netWeight}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -302,7 +311,11 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
         </Button>
       </Box>
 
-      <InvoiceItemFormDialog open={openInvoiceItemFrom} setOpen={setOpenInvoiceItemFrom} />
+      <InvoiceItemFormDialog
+        open={openInvoiceItemFrom}
+        setOpen={setOpenInvoiceItemFrom}
+        onSave={saveInvoiceItem}
+      />
     </Box>
   )
 }

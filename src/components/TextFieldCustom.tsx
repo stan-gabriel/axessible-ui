@@ -34,7 +34,9 @@ const TextFieldCustom: FC<TextFieldCustomProps> = ({
           ),
         }
 
-  return <TextField {...rest} variant="filled" fullWidth InputProps={adornment} />
+  return (
+    <TextField {...rest} variant="filled" fullWidth sx={{ m: '5px 0' }} InputProps={adornment} />
+  )
 }
 
 export default TextFieldCustom

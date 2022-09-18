@@ -1,33 +1,33 @@
 export interface IInvoiceInfo {
   invoiceNumber: number | undefined
-  invoiceTypeCode: string
-  invoiceDate: string
+  invoiceTypeCode: string | undefined
+  invoiceDate: string | undefined
   incoTerm: number | undefined
-  currency: string
-  exportCargoId: string
-  exportName: string
-  exportDunsNumber: string
-  exportCountryCode: string
+  currency: string | undefined
+  exportCargoId: string | undefined
+  exportName: string | undefined
+  exportDunsNumber: string | undefined
+  exportCountryCode: string | undefined
   exportVatId: number | undefined
-  importName: string
-  importCountryCode: string
+  importName: string | undefined
+  importCountryCode: string | undefined
   importVatId: number | undefined
   invoiceItems: IInvoiceItem[]
 }
 
 export const InvoiceInfoDefaultValues: IInvoiceInfo = {
   invoiceNumber: undefined,
-  invoiceTypeCode: '',
-  invoiceDate: '',
+  invoiceTypeCode: undefined,
+  invoiceDate: undefined,
   incoTerm: undefined,
-  currency: '',
-  exportCargoId: '',
-  exportName: '',
-  exportDunsNumber: '',
-  exportCountryCode: '',
+  currency: undefined,
+  exportCargoId: undefined,
+  exportName: undefined,
+  exportDunsNumber: undefined,
+  exportCountryCode: undefined,
   exportVatId: undefined,
-  importName: '',
-  importCountryCode: '',
+  importName: undefined,
+  importCountryCode: undefined,
   importVatId: undefined,
   invoiceItems: [],
 }

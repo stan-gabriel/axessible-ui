@@ -1,10 +1,6 @@
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
-import ListItemText from '@mui/material/ListItemText'
-import ListItem from '@mui/material/ListItem'
-import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
@@ -13,6 +9,9 @@ import CloseIcon from '@mui/icons-material/Close'
 import Slide from '@mui/material/Slide'
 import { TransitionProps } from '@mui/material/transitions'
 import { DialogActions, DialogContent, TextField } from '@mui/material'
+import { FC } from 'react'
+import { IInvoiceItem, InvoiceItemDefaultValues } from '../invoiceInfo.types'
+import TextFieldCustom from '../../../components/TextFieldCustom'
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -26,15 +25,26 @@ const Transition = React.forwardRef(function Transition(
 interface InvoiceItemFormDialogProps {
   open: boolean
   setOpen: any
+  onSave: (invoiceItem: IInvoiceItem) => void
 }
 
-export default function InvoiceItemFormDialog({ open, setOpen }: InvoiceItemFormDialogProps) {
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
+const InvoiceItemFormDialog: FC<InvoiceItemFormDialogProps> = ({ open, setOpen, onSave }) => {
+  const [invoiceItem, setInvoiceItem] = React.useState<IInvoiceItem>(InvoiceItemDefaultValues)
 
   const handleClose = () => {
     setOpen(false)
+  }
+
+  const handleInvoiceItemFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInvoiceItem({
+      ...invoiceItem,
+      [event.target.name]: event.target.value,
+    })
+  }
+
+  const handelSave = () => {
+    onSave(invoiceItem)
+    handleClose()
   }
 
   return (
@@ -53,7 +63,7 @@ export default function InvoiceItemFormDialog({ open, setOpen }: InvoiceItemForm
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Invoice Item - add product
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
+            <Button autoFocus color="inherit" onClick={handelSave}>
               Save
             </Button>
           </Toolbar>
@@ -63,66 +73,66 @@ export default function InvoiceItemFormDialog({ open, setOpen }: InvoiceItemForm
           dividers
           sx={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap' }}
         >
-          <TextField
+          <TextFieldCustom
             required
-            sx={{ m: '5px 0' }}
-            id="outlined-basic"
+            name="itemIdentification"
             label="Item Identification"
-            variant="filled"
+            toolTip="Some info"
+            onChange={handleInvoiceItemFormChange}
           />
-          <TextField
+          <TextFieldCustom
             required
-            sx={{ m: '5px 0' }}
-            id="outlined-basic"
+            name="productType"
             label="Product Type"
-            variant="filled"
+            toolTip="Some info"
+            onChange={handleInvoiceItemFormChange}
           />
-          <TextField
+          <TextFieldCustom
             required
-            sx={{ m: '5px 0' }}
-            id="outlined-basic"
+            name="productDescription"
             label="Product Description"
-            variant="filled"
+            toolTip="Some info"
+            onChange={handleInvoiceItemFormChange}
           />
-          <TextField
+          <TextFieldCustom
             required
-            sx={{ m: '5px 0' }}
-            id="outlined-basic"
+            name="hsCode"
             label="HS Code"
-            variant="filled"
+            toolTip="Some info"
+            onChange={handleInvoiceItemFormChange}
           />
-          <TextField
+          <TextFieldCustom
             required
-            sx={{ m: '5px 0' }}
-            id="outlined-basic"
-            label="GST Code"
-            variant="filled"
+            name="gs1Code"
+            label="GS1 Code"
+            toolTip="Some info"
+            onChange={handleInvoiceItemFormChange}
           />
-          <TextField
+          <TextFieldCustom
             required
-            sx={{ m: '5px 0' }}
-            id="outlined-basic"
+            name="originCountry"
             label="Origin Country"
-            variant="filled"
+            toolTip="Some info"
+            onChange={handleInvoiceItemFormChange}
           />
-          <TextField
+          <TextFieldCustom
             required
-            sx={{ m: '5px 0' }}
-            id="outlined-basic"
+            name="itemQuantity"
             label="Item Quantity"
-            variant="filled"
+            toolTip="Some info"
+            onChange={handleInvoiceItemFormChange}
           />
-          <TextField
+          <TextFieldCustom
             required
-            sx={{ m: '5px 0' }}
-            id="outlined-basic"
+            name="netWeight"
             label="Net Weight"
-            variant="filled"
+            toolTip="Some info"
+            onChange={handleInvoiceItemFormChange}
           />
         </DialogContent>
 
         <DialogActions>
-          <Button autoFocus color="inherit" onClick={handleClose}>
+          <Button autoFocus color="inherit" onClick={handelSave}>
             Save
           </Button>
         </DialogActions>
@@ -130,3 +140,5 @@ export default function InvoiceItemFormDialog({ open, setOpen }: InvoiceItemForm
     </div>
   )
 }
+
+export default InvoiceItemFormDialog
