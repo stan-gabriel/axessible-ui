@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import {
   Button,
-  InputAdornment,
   Paper,
   Table,
   TableBody,
@@ -11,14 +10,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from '@mui/material'
 import MenuItem from '@mui/material/MenuItem'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import Tooltip from '@mui/material/Tooltip'
 import { StyledTableCell } from '../../components/styledMuiComponents/InvoiceStyledTableCell'
 import InvoiceItemFormDialog from './components/InvoiceItemFormDialog'
-import { InvoiceInfoDefaultValues } from './invoiceInfo.types'
+import { IInvoiceInfo, InvoiceInfoDefaultValues } from './invoiceInfo.types'
 import TextFieldCustom from '../../components/TextFieldCustom'
 
 interface InvoiceInfoProps {}
@@ -72,7 +68,7 @@ const tableRows = [
 const InvoiceInfo: FC<InvoiceInfoProps> = () => {
   // const [invoiceTypeCode, setInvoiceTypeCode] = React.useState('Commercial')
   const [openInvoiceItemFrom, setOpenInvoiceItemFrom] = React.useState(false)
-  const [invoiceInfo, setInvoiceInfo] = React.useState(InvoiceInfoDefaultValues)
+  const [invoiceInfo, setInvoiceInfo] = React.useState<IInvoiceInfo>(InvoiceInfoDefaultValues)
 
   function handleInvoiceFormChange(event: React.ChangeEvent<HTMLInputElement>) {
     console.log(event.target.name, ' - NAME')
@@ -85,10 +81,6 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
 
   const handelAddInvoiceItem = () => {
     setOpenInvoiceItemFrom(true)
-  }
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setInvoiceTypeCode(event.target.value)
   }
 
   return (
@@ -108,10 +100,10 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
         >
           <TextFieldCustom
             required
-            name="filled-required"
+            type="number"
+            name="invoiceNumber"
             toolTip="Some info"
             label="Invoice number"
-            type="number"
             onChange={handleInvoiceFormChange}
           />
 
@@ -132,56 +124,29 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
             ))}
           </TextFieldCustom>
 
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
+            name="invoiceDate"
             label="Invoice Date"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
 
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
-            label="INCO term"
             type="number"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            name="incoTerm"
+            label="INCO term"
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
 
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
+            name="currency"
             label="Currency"
-            defaultValue="USD"
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
         </Box>
 
@@ -190,74 +155,47 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
         <Box
           sx={{
             '& .MuiTextField-root': { m: 1 },
+            display: 'flex',
           }}
         >
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
+            name="exportCargoId"
             label="Cargo ID"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
 
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
-            label="Duns number"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            name="exportName"
+            label="Name"
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
 
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
+            name="exportDunsNumber"
+            label="Duns Number"
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
+          />
+
+          <TextFieldCustom
+            required
+            name="exportCountryCode"
             label="Country Code"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
 
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
+            name="exportVatId"
             label="VAT ID"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
         </Box>
 
@@ -266,57 +204,32 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
         <Box
           sx={{
             '& .MuiTextField-root': { m: 1 },
+            display: 'flex',
           }}
         >
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
+            name="importName"
             label="Name"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
 
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
+            name="importCountryCode"
             label="Country Code"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
 
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
+            type="number"
+            name="importVatId"
             label="VAT ID"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            toolTip="Some info"
+            onChange={handleInvoiceFormChange}
           />
         </Box>
       </Paper>
@@ -383,6 +296,7 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
           variant="contained"
           size="large"
           sx={{ backgroundColor: '#5DCA83', borderRadius: '2rem', m: '1rem', p: '1rem 10rem' }}
+          onClick={() => console.log(invoiceInfo, 'INVOICE INFO FORM')}
         >
           Export to XML
         </Button>
