@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import AppBar from '@mui/material/AppBar'
@@ -8,8 +8,7 @@ import Typography from '@mui/material/Typography'
 import CloseIcon from '@mui/icons-material/Close'
 import Slide from '@mui/material/Slide'
 import { TransitionProps } from '@mui/material/transitions'
-import { DialogActions, DialogContent, TextField } from '@mui/material'
-import { FC } from 'react'
+import { DialogActions, DialogContent } from '@mui/material'
 import { IInvoiceItem, InvoiceItemDefaultValues } from '../invoiceInfo.types'
 import TextFieldCustom from '../../../components/TextFieldCustom'
 
@@ -63,9 +62,9 @@ const InvoiceItemFormDialog: FC<InvoiceItemFormDialogProps> = ({ open, setOpen, 
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Invoice Item - add product
             </Typography>
-            <Button autoFocus color="inherit" onClick={handelSave}>
-              Save
-            </Button>
+            {/*<Button autoFocus color="inherit" onClick={handelSave}>*/}
+            {/*  Save*/}
+            {/*</Button>*/}
           </Toolbar>
         </AppBar>
 
