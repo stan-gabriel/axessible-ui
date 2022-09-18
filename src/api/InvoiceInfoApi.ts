@@ -6,8 +6,8 @@ const api = axios.create({
 })
 
 export const postInvoiceInfo = async (invoiceInfo: IInvoiceInfo) => {
-  api.post('url', invoiceInfo, {}).then((res) => {
-    console.log(res.data, ' - api POST request')
+  api.post('www.google.ro', invoiceInfo, {}).then((res) => {
+    console.log(res.data, ' - api POST request - from request SERVICE')
     return res.data
   })
 }

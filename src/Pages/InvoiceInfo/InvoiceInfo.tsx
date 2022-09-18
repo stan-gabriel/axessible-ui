@@ -17,6 +17,7 @@ import InvoiceItemFormDialog from './components/InvoiceItemFormDialog'
 import { IInvoiceInfo, IInvoiceItem, InvoiceInfoDefaultValues } from './invoiceInfo.types'
 import TextFieldCustom from '../../components/TextFieldCustom'
 import { postInvoiceInfo } from '../../api/InvoiceInfoApi'
+import { useGlobalContext } from '../../context/GlobalContext'
 
 interface InvoiceInfoProps {}
 
@@ -31,44 +32,10 @@ const invoiceTypeCodes = [
   },
 ]
 
-function createRowData(
-  itemIdentification: string,
-  productType: string,
-  productDescription: string,
-  hsCode: string,
-  gs1Code: string,
-  originCountry: string,
-  itemQuantity: string,
-  netWeight: string
-) {
-  return {
-    itemIdentification,
-    productType,
-    productDescription,
-    hsCode,
-    gs1Code,
-    originCountry,
-    itemQuantity,
-    netWeight,
-  }
-}
-
-const tableRows = [
-  createRowData(
-    'value1',
-    'value 2',
-    'value 3',
-    'value 4',
-    'value 6',
-    'value 7',
-    'value 8',
-    'value 9'
-  ),
-]
-
 const InvoiceInfo: FC<InvoiceInfoProps> = () => {
   const [openInvoiceItemFrom, setOpenInvoiceItemFrom] = React.useState(false)
   const [invoiceInfo, setInvoiceInfo] = React.useState<IInvoiceInfo>(InvoiceInfoDefaultValues)
+  const { setShowLoader } = useGlobalContext()
 
   const handleInvoiceFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInvoiceInfo({
@@ -89,7 +56,11 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
   }
 
   const exportToXml = async () => {
+    setShowLoader(true)
+    console.log(invoiceInfo, 'INVOICE INFO FORM')
     const response = await postInvoiceInfo(invoiceInfo)
+    console.log(response, ' - Api POST response')
+    setShowLoader(false)
   }
 
   return (
@@ -305,7 +276,7 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
           variant="contained"
           size="large"
           sx={{ backgroundColor: '#5DCA83', borderRadius: '2rem', m: '1rem', p: '1rem 10rem' }}
-          onClick={() => console.log(invoiceInfo, 'INVOICE INFO FORM')}
+          onClick={exportToXml}
         >
           Export to XML
         </Button>
