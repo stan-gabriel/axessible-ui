@@ -18,6 +18,8 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import Tooltip from '@mui/material/Tooltip'
 import { StyledTableCell } from '../../components/styledMuiComponents/InvoiceStyledTableCell'
 import InvoiceItemFormDialog from './components/InvoiceItemFormDialog'
+import { InvoiceInfoDefaultValues } from './invoiceInfo.types'
+import TextFieldCustom from '../../components/TextFieldCustom'
 
 interface InvoiceInfoProps {}
 
@@ -68,15 +70,25 @@ const tableRows = [
 ]
 
 const InvoiceInfo: FC<InvoiceInfoProps> = () => {
-  const [invoiceTypeCode, setInvoiceTypeCode] = React.useState('Commercial')
+  // const [invoiceTypeCode, setInvoiceTypeCode] = React.useState('Commercial')
   const [openInvoiceItemFrom, setOpenInvoiceItemFrom] = React.useState(false)
+  const [invoiceInfo, setInvoiceInfo] = React.useState(InvoiceInfoDefaultValues)
+
+  function handleInvoiceFormChange(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(event.target.name, ' - NAME')
+    console.log(event.target.value, ' - VALUE')
+    setInvoiceInfo({
+      ...invoiceInfo,
+      [event.target.name]: event.target.value,
+    })
+  }
 
   const handelAddInvoiceItem = () => {
     setOpenInvoiceItemFrom(true)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInvoiceTypeCode(event.target.value)
+    // setInvoiceTypeCode(event.target.value)
   }
 
   return (
@@ -94,48 +106,31 @@ const InvoiceInfo: FC<InvoiceInfoProps> = () => {
             display: 'flex',
           }}
         >
-          <TextField
+          <TextFieldCustom
             required
-            id="filled-required"
+            name="filled-required"
+            toolTip="Some info"
             label="Invoice number"
             type="number"
-            defaultValue=""
-            variant="filled"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            onChange={handleInvoiceFormChange}
           />
 
-          <TextField
-            id="select-1"
+          <TextFieldCustom
             required
             select
+            name="invoiceTypeCode"
             label="Invoice Type Code"
-            value={invoiceTypeCode}
-            onChange={handleChange}
-            variant="filled"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Tooltip title="Some info">
-                    <InfoOutlinedIcon fontSize="small" />
-                  </Tooltip>
-                </InputAdornment>
-              ),
-            }}
+            value={invoiceInfo.invoiceTypeCode}
+            onChange={handleInvoiceFormChange}
+            toolTip="Some info"
+            toolTipPosition="start"
           >
             {invoiceTypeCodes.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
             ))}
-          </TextField>
+          </TextFieldCustom>
 
           <TextField
             required
