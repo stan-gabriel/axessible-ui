@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { IInvoiceInfo } from '../Pages/InvoiceInfo/invoiceInfo.types'
+import { IInvoiceInfo } from '../pages/InvoiceInfo/invoiceInfo.types'
 
 const api = axios.create({
   baseURL: '',
