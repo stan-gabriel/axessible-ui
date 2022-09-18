@@ -19,7 +19,7 @@ import TextFieldCustom from '../../components/TextFieldCustom'
 import { postInvoiceInfo } from '../../api/InvoiceInfoApi'
 import { useGlobalContext } from '../../context/GlobalContext'
 
-interface InvoiceInfoProps {}
+interface Props {}
 
 const invoiceTypeCodes = [
   {
@@ -32,7 +32,7 @@ const invoiceTypeCodes = [
   },
 ]
 
-const InvoiceInfo: FC<InvoiceInfoProps> = () => {
+const InvoiceInfo: FC<Props> = () => {
   const [openInvoiceItemFrom, setOpenInvoiceItemFrom] = React.useState(false)
   const [invoiceInfo, setInvoiceInfo] = React.useState<IInvoiceInfo>(InvoiceInfoDefaultValues)
   const { setShowLoader } = useGlobalContext()

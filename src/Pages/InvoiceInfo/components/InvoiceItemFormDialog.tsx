@@ -12,22 +12,13 @@ import { DialogActions, DialogContent } from '@mui/material'
 import { IInvoiceItem, InvoiceItemDefaultValues } from '../invoiceInfo.types'
 import TextFieldCustom from '../../../components/TextFieldCustom'
 
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />
-})
-
-interface InvoiceItemFormDialogProps {
+interface Props {
   open: boolean
   setOpen: any
   onSave: (invoiceItem: IInvoiceItem) => void
 }
 
-const InvoiceItemFormDialog: FC<InvoiceItemFormDialogProps> = ({ open, setOpen, onSave }) => {
+const InvoiceItemFormDialog: FC<Props> = ({ open, setOpen, onSave }) => {
   const [invoiceItem, setInvoiceItem] = React.useState<IInvoiceItem>(InvoiceItemDefaultValues)
 
   const handleClose = () => {
@@ -139,5 +130,14 @@ const InvoiceItemFormDialog: FC<InvoiceItemFormDialogProps> = ({ open, setOpen, 
     </div>
   )
 }
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />
+})
 
 export default InvoiceItemFormDialog
