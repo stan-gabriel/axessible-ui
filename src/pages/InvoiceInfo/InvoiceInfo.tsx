@@ -18,6 +18,8 @@ import { IInvoiceInfo, IInvoiceItem, InvoiceInfoDefaultValues } from './invoiceI
 import TextFieldCustom from '../../components/TextFieldCustom'
 import { postInvoiceInfo } from '../../api/InvoiceInfoApi'
 import { useGlobalContext } from '../../context/GlobalContext'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
+import IconButton from '@mui/material/IconButton'
 
 interface Props {}
 
@@ -52,6 +54,17 @@ const InvoiceInfo: FC<Props> = () => {
     setInvoiceInfo({
       ...invoiceInfo,
       invoiceItems: [...invoiceInfo.invoiceItems, invoiceItem],
+    })
+  }
+
+  const removeInvoiceItem = (invoiceItem: IInvoiceItem) => {
+    setInvoiceInfo({
+      ...invoiceInfo,
+      invoiceItems: [
+        ...invoiceInfo.invoiceItems.filter(
+          (item) => item.itemIdentification !== invoiceItem.itemIdentification
+        ),
+      ],
     })
   }
 
@@ -237,10 +250,11 @@ const InvoiceInfo: FC<Props> = () => {
           </Button>
         </Box>
 
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <TableContainer component={Paper} sx={{ maxHeight: 205 }}>
+          <Table size="small" aria-label="invoice items" stickyHeader>
             <TableHead>
               <TableRow>
+                <StyledTableCell />
                 <StyledTableCell>Item Identification</StyledTableCell>
                 <StyledTableCell align="right">Product Type</StyledTableCell>
                 <StyledTableCell align="right">Product Description</StyledTableCell>
@@ -254,9 +268,16 @@ const InvoiceInfo: FC<Props> = () => {
             <TableBody>
               {invoiceInfo.invoiceItems.map((item, index) => (
                 <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
-                    {item.itemIdentification}
+                  <TableCell>
+                    <IconButton aria-label="delete">
+                      <DeleteOutlinedIcon
+                        fontSize="small"
+                        color="error"
+                        onClick={() => removeInvoiceItem(item)}
+                      />
+                    </IconButton>
                   </TableCell>
+                  <TableCell>{item.itemIdentification}</TableCell>
                   <TableCell align="right">{item.productType}</TableCell>
                   <TableCell align="right">{item.productDescription}</TableCell>
                   <TableCell align="right">{item.hsCode}</TableCell>

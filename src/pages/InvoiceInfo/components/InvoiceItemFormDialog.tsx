@@ -34,6 +34,7 @@ const InvoiceItemFormDialog: FC<Props> = ({ open, setOpen, onSave }) => {
 
   const handelSave = () => {
     onSave(invoiceItem)
+    setInvoiceItem(InvoiceItemDefaultValues)
     handleClose()
   }
 
@@ -53,9 +54,6 @@ const InvoiceItemFormDialog: FC<Props> = ({ open, setOpen, onSave }) => {
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               Invoice Item - add product
             </Typography>
-            {/*<Button autoFocus color="inherit" onClick={handelSave}>*/}
-            {/*  Save*/}
-            {/*</Button>*/}
           </Toolbar>
         </AppBar>
 
