@@ -2,16 +2,22 @@ export interface IInvoiceInfo {
   invoiceNumber: number | undefined
   invoiceTypeCode: string
   invoiceDate: string
-  incoTerm: number | undefined
-  currency: string
-  exportCargoId: string
-  exportName: string
-  exportDunsNumber: string
-  exportCountryCode: string
-  exportVatId: number | undefined
-  importName: string
-  importCountryCode: string
-  importVatId: number | undefined
+  incoTermDeliveryCode: number | undefined
+  invoiceCurrency: string
+  allowanceTotalAmount: string
+  chargeTotalAmount: string
+  grandTotalAmount: string
+  lineTotalAmount: string
+  taxBasisTotalAmount: string
+  taxTotalAmount: string
+  exporterCargoXId: string
+  exporterName: string
+  exporterDunsNumber: string
+  exporterCountryCode: string
+  exporterVatId: number | undefined
+  importerName: string
+  importerCountryCode: string
+  importerVatId: number | undefined
   invoiceItems: IInvoiceItem[]
 }
 
@@ -19,37 +25,59 @@ export const InvoiceInfoDefaultValues: IInvoiceInfo = {
   invoiceNumber: undefined,
   invoiceTypeCode: '',
   invoiceDate: '',
-  incoTerm: undefined,
-  currency: '',
-  exportCargoId: '',
-  exportName: '',
-  exportDunsNumber: '',
-  exportCountryCode: '',
-  exportVatId: undefined,
-  importName: '',
-  importCountryCode: '',
-  importVatId: undefined,
+  incoTermDeliveryCode: undefined,
+  invoiceCurrency: '',
+  allowanceTotalAmount: '20',
+  chargeTotalAmount: '56',
+  grandTotalAmount: '302',
+  lineTotalAmount: '252',
+  taxBasisTotalAmount: '288',
+  taxTotalAmount: '14',
+  exporterCargoXId: '',
+  exporterName: '',
+  exporterDunsNumber: '',
+  exporterCountryCode: '',
+  exporterVatId: undefined,
+  importerName: '',
+  importerCountryCode: '',
+  importerVatId: undefined,
   invoiceItems: [],
 }
 
 export interface IInvoiceItem {
-  itemIdentification: string
+  itemNumber: string
   productType: string
   productDescription: string
   hsCode: string
-  gs1Code: string
-  originCountry: string
+  globalTradeItemNumber: string
+  countryOfOrigin: string
   itemQuantity: string
   netWeight: string
+  grossWeight: string
+  amountIndicatorAllownessOrCharges: boolean
+  amountIndicatorCalculationPercent: string
+  amountIndicatorBasisAmount: string
+  amountIndicatorActualAmount: string
+  specifiedTradeSummationLineTotalAmount: string
+  grossPriceChargeAmount: string
+  netPriceChargeAmount: string
 }
 
 export const InvoiceItemDefaultValues = {
-  itemIdentification: '',
+  itemNumber: '',
   productType: '',
   productDescription: '',
   hsCode: '',
-  gs1Code: '',
-  originCountry: '',
+  globalTradeItemNumber: '',
+  countryOfOrigin: '',
   itemQuantity: '',
   netWeight: '',
+  grossWeight: '',
+  amountIndicatorAllownessOrCharges: false,
+  amountIndicatorCalculationPercent: '',
+  amountIndicatorBasisAmount: '',
+  amountIndicatorActualAmount: '',
+  specifiedTradeSummationLineTotalAmount: '',
+  grossPriceChargeAmount: '',
+  netPriceChargeAmount: '',
 }
