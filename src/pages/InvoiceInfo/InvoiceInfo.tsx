@@ -96,7 +96,7 @@ const InvoiceInfo: FC<Props> = () => {
             type="number"
             name="invoiceNumber"
             toolTip="Proforma / commercial invoice number"
-            label="Invoice number"
+            label="Invoice no."
             onChange={handleInvoiceFormChange}
           />
 
@@ -137,8 +137,29 @@ const InvoiceInfo: FC<Props> = () => {
           <TextFieldCustom
             required
             name="invoiceCurrency"
-            label="Invoice currency"
+            label="Currency"
             toolTip="Invoice Currency"
+            onChange={handleInvoiceFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="chargeTotalAmount"
+            label="Shipping Cost"
+            toolTip="Shipping Cost"
+            onChange={handleInvoiceFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="allowanceTotalAmount"
+            label="Discount"
+            toolTip="Invoice Discount Amount"
+            onChange={handleInvoiceFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="taxTotalAmount"
+            label="Tax"
+            toolTip="Invoice Tax Amount"
             onChange={handleInvoiceFormChange}
           />
         </Box>
@@ -264,11 +285,8 @@ const InvoiceInfo: FC<Props> = () => {
                 <StyledTableCell align="right">Item Quantity</StyledTableCell>
                 <StyledTableCell align="right">Net Weight</StyledTableCell>
                 <StyledTableCell align="right">Gross Weight</StyledTableCell>
-                <StyledTableCell align="right">Allowness or charges</StyledTableCell>
                 <StyledTableCell align="right">Amount indicator percent</StyledTableCell>
                 <StyledTableCell align="right">Amount indicator basic amount</StyledTableCell>
-                <StyledTableCell align="right">Amount indicator actual amount</StyledTableCell>
-                <StyledTableCell align="right">Sumation line total amount</StyledTableCell>
                 <StyledTableCell align="right">Gross price charge amount</StyledTableCell>
                 <StyledTableCell align="right">Net price charge amount</StyledTableCell>
               </TableRow>
@@ -294,11 +312,8 @@ const InvoiceInfo: FC<Props> = () => {
                   <TableCell align="right">{item.itemQuantity}</TableCell>
                   <TableCell align="right">{item.netWeight}</TableCell>
                   <TableCell align="right">{item.grossWeight}</TableCell>
-                  <TableCell align="right">{item.amountIndicatorAllownessOrCharges}</TableCell>
-                  <TableCell align="right">{item.amountIndicatorCalculationPercent}</TableCell>
                   <TableCell align="right">{item.amountIndicatorBasisAmount}</TableCell>
-                  <TableCell align="right">{item.amountIndicatorActualAmount}</TableCell>
-                  <TableCell align="right">{item.specifiedTradeSummationLineTotalAmount}</TableCell>
+                  <TableCell align="right">{item.amountIndicatorCalculationPercent}</TableCell>
                   <TableCell align="right">{item.grossPriceChargeAmount}</TableCell>
                   <TableCell align="right">{item.netPriceChargeAmount}</TableCell>
                 </TableRow>

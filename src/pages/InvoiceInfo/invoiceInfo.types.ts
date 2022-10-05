@@ -6,9 +6,6 @@ export interface IInvoiceInfo {
   invoiceCurrency: string
   allowanceTotalAmount: string
   chargeTotalAmount: string
-  grandTotalAmount: string
-  lineTotalAmount: string
-  taxBasisTotalAmount: string
   taxTotalAmount: string
   exporterCargoXId: string
   exporterName: string
@@ -27,12 +24,9 @@ export const InvoiceInfoDefaultValues: IInvoiceInfo = {
   invoiceDate: '',
   incoTermDeliveryCode: undefined,
   invoiceCurrency: '',
-  allowanceTotalAmount: '20',
-  chargeTotalAmount: '56',
-  grandTotalAmount: '302',
-  lineTotalAmount: '252',
-  taxBasisTotalAmount: '288',
-  taxTotalAmount: '14',
+  allowanceTotalAmount: '',
+  chargeTotalAmount: '',
+  taxTotalAmount: '',
   exporterCargoXId: '',
   exporterName: '',
   exporterDunsNumber: '',
@@ -54,11 +48,8 @@ export interface IInvoiceItem {
   itemQuantity: string
   netWeight: string
   grossWeight: string
-  amountIndicatorAllownessOrCharges: boolean
   amountIndicatorCalculationPercent: string
   amountIndicatorBasisAmount: string
-  amountIndicatorActualAmount: string
-  specifiedTradeSummationLineTotalAmount: string
   grossPriceChargeAmount: string
   netPriceChargeAmount: string
 }
@@ -73,11 +64,8 @@ export const InvoiceItemDefaultValues = {
   itemQuantity: '',
   netWeight: '',
   grossWeight: '',
-  amountIndicatorAllownessOrCharges: false,
   amountIndicatorCalculationPercent: '',
   amountIndicatorBasisAmount: '',
-  amountIndicatorActualAmount: '',
-  specifiedTradeSummationLineTotalAmount: '',
-  grossPriceChargeAmount: '',
-  netPriceChargeAmount: '',
+  grossPriceChargeAmount: '100',
+  netPriceChargeAmount: '60',
 }
