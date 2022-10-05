@@ -16,21 +16,21 @@ import { StyledTableCell } from '../../components/styledMuiComponents/InvoiceSty
 import InvoiceItemFormDialog from './components/InvoiceItemFormDialog'
 import { IInvoiceInfo, IInvoiceItem, InvoiceInfoDefaultValues } from './invoiceInfo.types'
 import TextFieldCustom from '../../components/TextFieldCustom'
-import { postInvoiceInfo } from '../../api/InvoiceInfoApi'
+import { postAndDownloadInvoiceInfo } from '../../api/InvoiceInfoApi'
 import { useGlobalContext } from '../../context/GlobalContext'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import IconButton from '@mui/material/IconButton'
 
-interface Props {}
+interface Props { }
 
 const invoiceTypeCodes = [
   {
-    value: 'Commercial',
+    value: '325',
     label: 'Commercial',
   },
   {
-    value: 'Industrial',
-    label: 'Industrial',
+    value: '380',
+    label: 'Proforma',
   },
 ]
 
@@ -62,7 +62,7 @@ const InvoiceInfo: FC<Props> = () => {
       ...invoiceInfo,
       invoiceItems: [
         ...invoiceInfo.invoiceItems.filter(
-          (item) => item.itemIdentification !== invoiceItem.itemIdentification
+          (item) => item.itemNumber !== invoiceItem.itemNumber
         ),
       ],
     })
@@ -71,7 +71,7 @@ const InvoiceInfo: FC<Props> = () => {
   const exportToXml = async () => {
     setShowLoader(true)
     console.log(invoiceInfo, 'INVOICE INFO FORM')
-    const response = await postInvoiceInfo(invoiceInfo)
+    const response = await postAndDownloadInvoiceInfo(invoiceInfo)
     console.log(response, ' - Api POST response')
     setShowLoader(false)
   }
@@ -95,8 +95,8 @@ const InvoiceInfo: FC<Props> = () => {
             required
             type="number"
             name="invoiceNumber"
-            toolTip="Some info"
-            label="Invoice number"
+            toolTip="Proforma / commercial invoice number"
+            label="Invoice no."
             onChange={handleInvoiceFormChange}
           />
 
@@ -107,7 +107,7 @@ const InvoiceInfo: FC<Props> = () => {
             label="Invoice Type Code"
             value={invoiceInfo.invoiceTypeCode}
             onChange={handleInvoiceFormChange}
-            toolTip="Some info"
+            toolTip="Proforma or Commercial"
             toolTipPosition="start"
           >
             {invoiceTypeCodes.map((option) => (
@@ -121,24 +121,45 @@ const InvoiceInfo: FC<Props> = () => {
             required
             name="invoiceDate"
             label="Invoice Date"
-            toolTip="Some info"
+            toolTip="Date of invoice in specific format"
             onChange={handleInvoiceFormChange}
           />
 
           <TextFieldCustom
             required
             type="number"
-            name="incoTerm"
+            name="incoTermDeliveryCode"
             label="INCO term"
-            toolTip="Some info"
+            toolTip="Delivery Code"
             onChange={handleInvoiceFormChange}
           />
 
           <TextFieldCustom
             required
-            name="currency"
+            name="invoiceCurrency"
             label="Currency"
-            toolTip="Some info"
+            toolTip="Invoice Currency"
+            onChange={handleInvoiceFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="chargeTotalAmount"
+            label="Shipping Cost"
+            toolTip="Shipping Cost"
+            onChange={handleInvoiceFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="allowanceTotalAmount"
+            label="Discount"
+            toolTip="Invoice Discount Amount"
+            onChange={handleInvoiceFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="taxTotalAmount"
+            label="Tax"
+            toolTip="Invoice Tax Amount"
             onChange={handleInvoiceFormChange}
           />
         </Box>
@@ -153,41 +174,41 @@ const InvoiceInfo: FC<Props> = () => {
         >
           <TextFieldCustom
             required
-            name="exportCargoId"
-            label="Cargo ID"
-            toolTip="Some info"
+            name="exporterCargoXId"
+            label="CargoX ID"
+            toolTip="Shipper CargoX ID"
             onChange={handleInvoiceFormChange}
           />
 
           <TextFieldCustom
             required
-            name="exportName"
+            name="exporterName"
             label="Name"
-            toolTip="Some info"
+            toolTip="Shipper Name"
             onChange={handleInvoiceFormChange}
           />
 
           <TextFieldCustom
             required
-            name="exportDunsNumber"
+            name="exporterDunsNumber"
             label="Duns Number"
-            toolTip="Some info"
+            toolTip="Data Universal Numbering System (D-U-N-S Number)"
             onChange={handleInvoiceFormChange}
           />
 
           <TextFieldCustom
             required
-            name="exportCountryCode"
+            name="exporterCountryCode"
             label="Country Code"
-            toolTip="Some info"
+            toolTip="Country Code"
             onChange={handleInvoiceFormChange}
           />
 
           <TextFieldCustom
             required
-            name="exportVatId"
+            name="exporterVatId"
             label="VAT ID"
-            toolTip="Some info"
+            toolTip="VAT ID"
             onChange={handleInvoiceFormChange}
           />
         </Box>
@@ -202,26 +223,26 @@ const InvoiceInfo: FC<Props> = () => {
         >
           <TextFieldCustom
             required
-            name="importName"
+            name="importerName"
             label="Name"
-            toolTip="Some info"
+            toolTip="Importer Name"
             onChange={handleInvoiceFormChange}
           />
 
           <TextFieldCustom
             required
-            name="importCountryCode"
+            name="importerCountryCode"
             label="Country Code"
-            toolTip="Some info"
+            toolTip="Country Code"
             onChange={handleInvoiceFormChange}
           />
 
           <TextFieldCustom
             required
             type="number"
-            name="importVatId"
+            name="importerVatId"
             label="VAT ID"
-            toolTip="Some info"
+            toolTip="VAT ID"
             onChange={handleInvoiceFormChange}
           />
         </Box>
@@ -263,6 +284,11 @@ const InvoiceInfo: FC<Props> = () => {
                 <StyledTableCell align="right">Origin Country</StyledTableCell>
                 <StyledTableCell align="right">Item Quantity</StyledTableCell>
                 <StyledTableCell align="right">Net Weight</StyledTableCell>
+                <StyledTableCell align="right">Gross Weight</StyledTableCell>
+                <StyledTableCell align="right">Amount indicator percent</StyledTableCell>
+                <StyledTableCell align="right">Amount indicator basic amount</StyledTableCell>
+                <StyledTableCell align="right">Gross price charge amount</StyledTableCell>
+                <StyledTableCell align="right">Net price charge amount</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -277,14 +303,19 @@ const InvoiceInfo: FC<Props> = () => {
                       />
                     </IconButton>
                   </TableCell>
-                  <TableCell>{item.itemIdentification}</TableCell>
+                  <TableCell>{item.itemNumber}</TableCell>
                   <TableCell align="right">{item.productType}</TableCell>
                   <TableCell align="right">{item.productDescription}</TableCell>
                   <TableCell align="right">{item.hsCode}</TableCell>
-                  <TableCell align="right">{item.gs1Code}</TableCell>
-                  <TableCell align="right">{item.originCountry}</TableCell>
+                  <TableCell align="right">{item.globalTradeItemNumber}</TableCell>
+                  <TableCell align="right">{item.countryOfOrigin}</TableCell>
                   <TableCell align="right">{item.itemQuantity}</TableCell>
                   <TableCell align="right">{item.netWeight}</TableCell>
+                  <TableCell align="right">{item.grossWeight}</TableCell>
+                  <TableCell align="right">{item.amountIndicatorBasisAmount}</TableCell>
+                  <TableCell align="right">{item.amountIndicatorCalculationPercent}</TableCell>
+                  <TableCell align="right">{item.grossPriceChargeAmount}</TableCell>
+                  <TableCell align="right">{item.netPriceChargeAmount}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

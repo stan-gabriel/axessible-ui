@@ -63,58 +63,93 @@ const InvoiceItemFormDialog: FC<Props> = ({ open, setOpen, onSave }) => {
         >
           <TextFieldCustom
             required
-            name="itemIdentification"
-            label="Item Identification"
-            toolTip="Some info"
+            name="itemNumber"
+            label="Item Number"
+            toolTip="Item Number"
             onChange={handleInvoiceItemFormChange}
           />
           <TextFieldCustom
             required
             name="productType"
             label="Product Type"
-            toolTip="Some info"
+            toolTip="Product Type"
             onChange={handleInvoiceItemFormChange}
           />
           <TextFieldCustom
             required
             name="productDescription"
             label="Product Description"
-            toolTip="Some info"
+            toolTip="Description of the specified item"
             onChange={handleInvoiceItemFormChange}
           />
           <TextFieldCustom
             required
             name="hsCode"
             label="HS Code"
-            toolTip="Some info"
+            toolTip="HS Code of the specified item"
             onChange={handleInvoiceItemFormChange}
           />
           <TextFieldCustom
             required
-            name="gs1Code"
-            label="GS1 Code"
-            toolTip="Some info"
+            name="globalTradeItemNumber"
+            label="Global Trade Item Numbers"
+            toolTip="Global Trade Item Numbers (GTIN)"
             onChange={handleInvoiceItemFormChange}
           />
           <TextFieldCustom
             required
-            name="originCountry"
+            name="countryOfOrigin"
             label="Origin Country"
-            toolTip="Some info"
+            toolTip="Country of Origin of the specified item"
             onChange={handleInvoiceItemFormChange}
           />
           <TextFieldCustom
             required
             name="itemQuantity"
             label="Item Quantity"
-            toolTip="Some info"
+            toolTip="Item Quantity"
             onChange={handleInvoiceItemFormChange}
           />
           <TextFieldCustom
             required
             name="netWeight"
             label="Net Weight"
-            toolTip="Some info"
+            toolTip="Net Weight"
+            onChange={handleInvoiceItemFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="grossWeight"
+            label="Gross Weight"
+            toolTip="Gross Weight"
+            onChange={handleInvoiceItemFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="amountIndicatorCalculationPercent"
+            label="Amount indicator percent"
+            toolTip="Discount Percent"
+            onChange={handleInvoiceItemFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="amountIndicatorBasisAmount"
+            label="Amount indicator basic amount"
+            toolTip="Item Original Price"
+            onChange={handleInvoiceItemFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="grossPriceChargeAmount"
+            label="Gross price charge amount"
+            toolTip="A gross product price in this line trade agreement"
+            onChange={handleInvoiceItemFormChange}
+          />
+          <TextFieldCustom
+            required
+            name="netPriceChargeAmount"
+            label="Net price charge amount"
+            toolTip="A net product price in this line trade agreement"
             onChange={handleInvoiceItemFormChange}
           />
         </DialogContent>
