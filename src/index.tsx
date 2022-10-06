@@ -14,6 +14,9 @@ const theme = createTheme({
       },
     },
   },
+  // shape: {
+  //   borderRadius: 5,
+  // },
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
