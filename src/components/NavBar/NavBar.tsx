@@ -13,7 +13,7 @@ interface NavBarProps {}
 
 const NavBar: FC<NavBarProps> = () => {
   return (
-    <AppBar position="static" color="default">
+    <AppBar position="static" color="inherit" sx={{ p: '0 3rem' }}>
       <Container
         maxWidth="xl"
         sx={{
