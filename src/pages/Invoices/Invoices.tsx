@@ -17,7 +17,6 @@ import Button from '@mui/material/Button'
 import FilterListIcon from '@mui/icons-material/FilterList'
 // import { invoicesMockData } from '../../mock/invoicesMock'
 import { IInvoice } from './invoice.types'
-import axios from 'axios'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import { useGlobalContext } from '../../context/GlobalContext'
 import { deleteInvoices, getInvoices } from '../../api/InvoiceInfoApi'
@@ -58,9 +57,7 @@ const Invoices: FC<Props> = () => {
   const handleExport = async (invoiceNumber: string) => {
     console.log('EXPORT', invoiceNumber)
     setShowLoader(true)
-    await axios.post(`http://127.0.0.1:8000/invoice/${invoiceNumber}`, {}).catch((err) => {
-      setShowLoader(false)
-    })
+    //todo
     setShowLoader(false)
   }
 
