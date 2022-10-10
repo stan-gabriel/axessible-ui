@@ -20,6 +20,7 @@ import { IInvoice } from './invoice.types'
 import axios from 'axios'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import { useGlobalContext } from '../../context/GlobalContext'
+import { getInvoices } from '../../api/InvoiceInfoApi'
 
 interface Props {}
 
@@ -35,8 +36,8 @@ const Invoices: FC<Props> = () => {
   useEffect(() => {
     const fetchData = async () => {
       setShowLoader(true)
-      const res = await axios.get<IInvoice[]>('http://127.0.0.1:8000/invoice')
-      setInvoices(res.data)  //TODO uncomment this when API is working
+      const res = await getInvoices()
+      setInvoices(res) //TODO uncomment this when API is working
       setShowLoader(false)
     }
     // setInvoices(invoicesMockData) // Mock data todo remove this when API is ready
