@@ -20,7 +20,7 @@ import { IInvoice } from './invoice.types'
 import axios from 'axios'
 import SearchInput from '../../components/SearchInput/SearchInput'
 import { useGlobalContext } from '../../context/GlobalContext'
-import { getInvoices } from '../../api/InvoiceInfoApi'
+import { deleteInvoices, getInvoices } from '../../api/InvoiceInfoApi'
 
 interface Props {}
 
@@ -67,9 +67,7 @@ const Invoices: FC<Props> = () => {
   const handleDelete = async (invoiceNumber: string) => {
     console.log('DELETE', invoiceNumber)
     setShowLoader(true)
-    await axios.delete(`http://127.0.0.1:8000/invoice/${invoiceNumber}`).catch((err) => {
-      setShowLoader(false)
-    })
+    await deleteInvoices(invoiceNumber)
     setShowLoader(false)
   }
 
