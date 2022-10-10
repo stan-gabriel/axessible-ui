@@ -15,7 +15,7 @@ import {
 import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
 import FilterListIcon from '@mui/icons-material/FilterList'
-import { invoicesMockData } from '../../mock/invoicesMock'
+// import { invoicesMockData } from '../../mock/invoicesMock'
 import { IInvoice } from './invoice.types'
 import axios from 'axios'
 import SearchInput from '../../components/SearchInput/SearchInput'
@@ -35,11 +35,11 @@ const Invoices: FC<Props> = () => {
   useEffect(() => {
     const fetchData = async () => {
       setShowLoader(true)
-      const res = await axios.get<IInvoice[]>('http://127.0.0.1:8000/invoices/')
-      // setInvoices(res.data)  //TODO uncomment this when API is working
+      const res = await axios.get<IInvoice[]>('http://127.0.0.1:8000/invoice')
+      setInvoices(res.data)  //TODO uncomment this when API is working
       setShowLoader(false)
     }
-    setInvoices(invoicesMockData) // Mock data todo remove this when API is ready
+    // setInvoices(invoicesMockData) // Mock data todo remove this when API is ready
 
     fetchData().catch((err) => {
       setShowLoader(false)
@@ -57,7 +57,7 @@ const Invoices: FC<Props> = () => {
   const handleExport = async (invoiceNumber: string) => {
     console.log('EXPORT', invoiceNumber)
     setShowLoader(true)
-    await axios.post(`http://127.0.0.1:8000/invoices/${invoiceNumber}`, {}).catch((err) => {
+    await axios.post(`http://127.0.0.1:8000/invoice/${invoiceNumber}`, {}).catch((err) => {
       setShowLoader(false)
     })
     setShowLoader(false)
@@ -66,7 +66,7 @@ const Invoices: FC<Props> = () => {
   const handleDelete = async (invoiceNumber: string) => {
     console.log('DELETE', invoiceNumber)
     setShowLoader(true)
-    await axios.delete(`http://127.0.0.1:8000/invoices/${invoiceNumber}`).catch((err) => {
+    await axios.delete(`http://127.0.0.1:8000/invoice/${invoiceNumber}`).catch((err) => {
       setShowLoader(false)
     })
     setShowLoader(false)

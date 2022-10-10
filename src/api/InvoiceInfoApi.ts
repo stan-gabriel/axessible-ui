@@ -28,7 +28,7 @@ export const postAndDownloadInvoiceInfo = async (invoiceInfo: IInvoiceInfo) => {
 
 export const getInvoices = async (): Promise<IInvoice[]> => {
   return await api
-    .get('http://127.0.0.1:8000/invoices/', { headers: headers })
+    .get('http://127.0.0.1:8000/invoice', { headers: headers })
     .then((res) => {
       console.log(res.data, ' - api GET res.data')
       console.log(res, ' - api GET res')
