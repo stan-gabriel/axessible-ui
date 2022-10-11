@@ -2,6 +2,7 @@ import { IInvoice } from '../pages/Invoices/invoice.types'
 
 export const invoicesMockData: IInvoice[] = [
   {
+    id: '1',
     invoice_number: '102030',
     invoice_type_code: '325',
     invoice_date: '20220120',
@@ -38,6 +39,7 @@ export const invoicesMockData: IInvoice[] = [
   },
 
   {
+    id: '2',
     invoice_number: '102031',
     invoice_type_code: '326',
     invoice_date: '20220120',
