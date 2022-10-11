@@ -114,83 +114,84 @@ const Invoices: FC<Props> = () => {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: '1rem' }}>
           <Typography variant="h6">Invoice Listing</Typography>
 
-          <Typography variant="h6">{invoices.length} Results</Typography>
+          <Typography variant="h6">{invoices ? invoices.length : 0} Results</Typography>
         </Box>
-
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Invoice No</TableCell>
-                <TableCell align="right">Invoice Date</TableCell>
-                <TableCell align="right">Export Name</TableCell>
-                <TableCell align="right">Import Name</TableCell>
-                <TableCell align="right">Upload Date</TableCell>
-                <TableCell align="right" />
-                <TableCell align="right" />
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {invoices.map((invoice: IInvoice) => (
-                <TableRow
-                  key={invoice.invoice_number}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {invoice.invoice_number}
-                  </TableCell>
-                  <TableCell align="right">{invoice.invoice_date}</TableCell>
-                  <TableCell align="right">{invoice.exporter_name}</TableCell>
-                  <TableCell align="right">{invoice.importer_name}</TableCell>
-                  <TableCell align="right">{invoice.invoice_date}</TableCell>
+        {invoices && (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Invoice No</TableCell>
+                  <TableCell align="right">Invoice Date</TableCell>
+                  <TableCell align="right">Export Name</TableCell>
+                  <TableCell align="right">Import Name</TableCell>
+                  <TableCell align="right">Upload Date</TableCell>
                   <TableCell align="right" />
-                  <TableCell align="right">
-                    <Button
-                      variant="contained"
-                      size="small"
-                      sx={{
-                        borderRadius: '2rem',
-                        minWidth: '150px',
-                        backgroundColor: '#c7c7c7',
-                        m: '5px 5px 0 0',
-                      }}
-                      onClick={() => handleViewOriginal(invoice.invoice_number)}
-                    >
-                      View Original
-                    </Button>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      color="success"
-                      sx={{ borderRadius: '2rem', m: '5px 5px 0 0' }}
-                      onClick={() => handleEdit(invoice.invoice_number)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      color="warning"
-                      sx={{ borderRadius: '2rem', m: '5px 5px 0 0' }}
-                      onClick={() => handleExport(invoice.invoice_number)}
-                    >
-                      Export
-                    </Button>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      color="error"
-                      sx={{ borderRadius: '2rem', m: '5px 5px 0 0' }}
-                      onClick={() => handleDelete(invoice.invoice_number)}
-                    >
-                      Delete
-                    </Button>
-                  </TableCell>
+                  <TableCell align="right" />
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {invoices.map((invoice: IInvoice) => (
+                  <TableRow
+                    key={invoice.invoice_number}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {invoice.invoice_number}
+                    </TableCell>
+                    <TableCell align="right">{invoice.invoice_date}</TableCell>
+                    <TableCell align="right">{invoice.exporter_name}</TableCell>
+                    <TableCell align="right">{invoice.importer_name}</TableCell>
+                    <TableCell align="right">{invoice.invoice_date}</TableCell>
+                    <TableCell align="right" />
+                    <TableCell align="right">
+                      <Button
+                        variant="contained"
+                        size="small"
+                        sx={{
+                          borderRadius: '2rem',
+                          minWidth: '150px',
+                          backgroundColor: '#c7c7c7',
+                          m: '5px 5px 0 0',
+                        }}
+                        onClick={() => handleViewOriginal(invoice.invoice_number)}
+                      >
+                        View Original
+                      </Button>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="success"
+                        sx={{ borderRadius: '2rem', m: '5px 5px 0 0' }}
+                        onClick={() => handleEdit(invoice.invoice_number)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="warning"
+                        sx={{ borderRadius: '2rem', m: '5px 5px 0 0' }}
+                        onClick={() => handleExport(invoice.invoice_number)}
+                      >
+                        Export
+                      </Button>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="error"
+                        sx={{ borderRadius: '2rem', m: '5px 5px 0 0' }}
+                        onClick={() => handleDelete(invoice.invoice_number)}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
       </Box>
     </>
   )
