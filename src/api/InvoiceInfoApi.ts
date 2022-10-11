@@ -32,7 +32,7 @@ export const getInvoices = async (): Promise<IInvoice[]> => {
     .then((res) => {
       console.log(res.data, ' - api GET res.data')
       console.log(res, ' - api GET res')
-      return res.data
+      return res.data.results
     })
     .catch((err) => {
       console.log('AXIOS ERROR: ', err)
