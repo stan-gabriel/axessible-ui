@@ -41,7 +41,7 @@ export const getInvoices = async (): Promise<IInvoice[]> => {
 
 export const deleteInvoices = async (invoiceNumber: string): Promise<void> => {
   return await api
-    .delete(`http://127.0.0.1:8000/invoice${invoiceNumber}`, { headers: headers })
+    .delete(`http://127.0.0.1:8000/invoice/${invoiceNumber}`, { headers: headers })
     .then((res) => {
       console.log(res.data, ' - api DELETE res.data')
       console.log(res, ' - api DELETE res')
