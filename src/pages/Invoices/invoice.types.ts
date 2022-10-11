@@ -1,4 +1,5 @@
 export interface IInvoice {
+  id: string
   invoice_number: string
   invoice_type_code: string
   invoice_date: string
